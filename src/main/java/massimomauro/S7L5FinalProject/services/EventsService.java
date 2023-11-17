@@ -7,6 +7,7 @@ import massimomauro.S7L5FinalProject.exceptions.BadRequestException;
 import massimomauro.S7L5FinalProject.exceptions.NotFoundException;
 import massimomauro.S7L5FinalProject.payloads.events.NewEventDTO;
 import massimomauro.S7L5FinalProject.repositories.EventsRepository;
+import massimomauro.S7L5FinalProject.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,8 @@ import java.util.List;
 public class EventsService {
     @Autowired
     private EventsRepository eventsRepository;
+    @Autowired
+    private UsersRepository usersRepository;
     @Autowired
     private UsersService usersService;
 
@@ -64,13 +67,15 @@ public class EventsService {
         return eventsRepository.save(found);
     }
 
-    public Event findByIdAndPartecipate(int eventId, int userId ){
+    public Event findByIdAndPartecipate(int eventId, int userId )throws NotFoundException{
         User user = usersService.findById(userId);
+
         Event found = this.findById(eventId);
         List<User> UsersPartecipant = new ArrayList<>(found.getListPartecipants());
         UsersPartecipant.add(user);
         found.setListPartecipants(UsersPartecipant);
-        System.out.println("aggiunto!");
+
+        user.setEvent(found);
         return eventsRepository.save(found);
 
     }

@@ -56,7 +56,7 @@ public class EventsController {
         eventsService.findByIdAndDelete(id);
     }
 
-    @PutMapping("/me/{id}")
+    @PostMapping("/me/{id}")
     public Event findIdAndPartecipate(@PathVariable int id, @AuthenticationPrincipal User currentUser){
         System.out.println(currentUser.getId());
         return eventsService.findByIdAndPartecipate(id, currentUser.getId());
