@@ -35,7 +35,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @JoinColumn(name="userId")
+    @ManyToOne
+    @JoinColumn(name="eventId")
     private Event event;
 
     @Override
