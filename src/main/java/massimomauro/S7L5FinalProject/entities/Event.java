@@ -1,5 +1,6 @@
 package massimomauro.S7L5FinalProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class Event {
     private LocalDate eventStartDate;
     private int totalTickets;
     @OneToMany(mappedBy = "event")
+    @JsonIgnoreProperties("event")
     private List<User> listPartecipants ;
     @Enumerated(EnumType.STRING)
     private EventStatus eventStatus;

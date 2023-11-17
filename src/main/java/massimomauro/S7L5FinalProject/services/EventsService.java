@@ -71,11 +71,13 @@ public class EventsService {
         User user = usersService.findById(userId);
 
         Event found = this.findById(eventId);
+        user.setEvent(found);
+
         List<User> UsersPartecipant = new ArrayList<>(found.getListPartecipants());
         UsersPartecipant.add(user);
         found.setListPartecipants(UsersPartecipant);
 
-        user.setEvent(found);
+
         return eventsRepository.save(found);
 
     }

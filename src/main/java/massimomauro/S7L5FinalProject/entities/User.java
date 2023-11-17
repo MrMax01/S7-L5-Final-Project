@@ -1,5 +1,6 @@
 package massimomauro.S7L5FinalProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,8 +19,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @Entity
+@ToString
 @Table(name = "users")
 @JsonIgnoreProperties({"password", "authorities", "enabled", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
 public class User implements UserDetails {
@@ -37,6 +38,7 @@ public class User implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name="eventId")
+    @JsonBackReference
     private Event event;
 
     @Override
@@ -71,4 +73,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
