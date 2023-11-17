@@ -55,7 +55,7 @@ public class AuthService {
         newUser.setSurname(body.surname());
         newUser.setPassword(bcrypt.encode(body.password())); // $2a$11$wQyZ17wrGu8AZeb2GCTcR.QOotbcVd9JwQnnCeqONWWP3wRi60tAO
         newUser.setEmail(body.email());
-        newUser.setRole(body.role());
+        newUser.setRole(Role.USER);
         User savedUser = usersRepository.save(newUser);
         return savedUser;
     }

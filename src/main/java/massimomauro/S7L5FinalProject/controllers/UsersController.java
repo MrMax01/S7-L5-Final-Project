@@ -11,6 +11,7 @@ package massimomauro.S7L5FinalProject.controllers;
 
 */
 
+import massimomauro.S7L5FinalProject.entities.Event;
 import massimomauro.S7L5FinalProject.entities.User;
 import massimomauro.S7L5FinalProject.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,13 @@ public class UsersController {
 
     // 1. GET http://localhost:3001/users (+ query params opzionali)
     @GetMapping("")
-    // @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('EVENT_ORGANIZER')")
     public Page<User> getUser(@RequestParam(defaultValue = "0") int page,
                               @RequestParam(defaultValue = "10") int size,
                               @RequestParam(defaultValue = "id") String orderBy){
         return usersService.getUsers(page, size, orderBy);
     }
+
 
     @GetMapping("/me")
     public UserDetails getProfile(@AuthenticationPrincipal UserDetails currentUser){

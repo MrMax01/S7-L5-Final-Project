@@ -22,8 +22,7 @@ public class Event {
     private String location;
     private String description;
     private LocalDate eventStartDate;
-    private LocalDate eventEndDate;
-    private int totalTicket;
+    private int totalTickets;
     @OneToMany(mappedBy = "event")
     private List<User> listPartecipants ;
     @Enumerated(EnumType.STRING)
