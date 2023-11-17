@@ -21,7 +21,6 @@ public class EventsController {
 
     // 1. GET http://localhost:3001/events (+ query params opzionali)
     @GetMapping("")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public Page<Event> getEvent(@RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size,
                                @RequestParam(defaultValue = "id") String orderBy){
@@ -55,6 +54,11 @@ public class EventsController {
     @ResponseStatus(HttpStatus.NO_CONTENT) // <-- 204 NO CONTENT
     public void findByIdAndDelete(@PathVariable int id){
         eventsService.findByIdAndDelete(id);
+    }
+
+    @PutMapping("/me/{id}")
+    public void findIdAndPartecipate(@PathVariable int id, @AuthenticationPrincipal User currentUser){
+        eventsService.findByIdAndPartecipate(id, currentUser.getId());
     }
 
 }

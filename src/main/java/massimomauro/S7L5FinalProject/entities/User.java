@@ -44,6 +44,9 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
 
+
+
+
     @Override
     public String getUsername() {
         return this.email;

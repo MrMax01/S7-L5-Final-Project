@@ -60,5 +60,12 @@ public class EventsService {
         return eventsRepository.save(found);
     }
 
+    public void findByIdAndPartecipate(int eventId, int userId ){
+        User user = usersService.findById(userId);
+        Event event = findById(eventId);
+        event.setListPartecipants(user);
+        System.out.println("aggiunto!");
+
+    }
 
 }

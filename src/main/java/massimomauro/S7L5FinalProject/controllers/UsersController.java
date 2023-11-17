@@ -31,7 +31,7 @@ public class UsersController {
 
     // 1. GET http://localhost:3001/users (+ query params opzionali)
     @GetMapping("")
-    @PreAuthorize("hasAnyAuthority('EVENT_ORGANIZER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public Page<User> getUser(@RequestParam(defaultValue = "0") int page,
                               @RequestParam(defaultValue = "10") int size,
                               @RequestParam(defaultValue = "id") String orderBy){
@@ -49,11 +49,14 @@ public class UsersController {
         return usersService.findByIdAndUpdate(currentUser.getId(), body);
     }
 
+
+
     @DeleteMapping("/me")
     @ResponseStatus(HttpStatus.NO_CONTENT) // <-- 204 NO CONTENT
     public void getProfile(@AuthenticationPrincipal User currentUser){
         usersService.findByIdAndDelete(currentUser.getId());
     };
+
 
 
 

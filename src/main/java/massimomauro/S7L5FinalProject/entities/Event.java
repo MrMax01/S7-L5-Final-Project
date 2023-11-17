@@ -28,4 +28,7 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventStatus eventStatus;
 
+    public void setListPartecipants(User partecipant) {
+        this.listPartecipants.add(partecipant);
+    }
 }
