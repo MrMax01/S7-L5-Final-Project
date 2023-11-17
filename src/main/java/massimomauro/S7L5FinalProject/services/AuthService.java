@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @Service
 public class AuthService {
@@ -55,7 +56,11 @@ public class AuthService {
         newUser.setSurname(body.surname());
         newUser.setPassword(bcrypt.encode(body.password())); // $2a$11$wQyZ17wrGu8AZeb2GCTcR.QOotbcVd9JwQnnCeqONWWP3wRi60tAO
         newUser.setEmail(body.email());
-        newUser.setRole(body.role());
+        if(body.isAnOrganizer()){
+            newUser.setRole(Role.EVENT_ORGANIZER);
+        }else{
+            newUser.setRole(Role.USER);
+        }
         User savedUser = usersRepository.save(newUser);
         return savedUser;
     }

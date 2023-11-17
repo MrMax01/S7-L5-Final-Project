@@ -14,6 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EventsService {
     @Autowired
@@ -30,6 +33,7 @@ public class EventsService {
         newEvent.setLocation(body.location());
         newEvent.setEventStartDate(body.eventStartDate());
         newEvent.setTotalTickets(body.totalTickets());
+        newEvent.setEventStatus(EventStatus.LIBERO);
         //newEvent.setCover("http://picsum.photos/200/300");
         return eventsRepository.save(newEvent);
 
@@ -60,11 +64,14 @@ public class EventsService {
         return eventsRepository.save(found);
     }
 
-    public void findByIdAndPartecipate(int eventId, int userId ){
+    public Event findByIdAndPartecipate(int eventId, int userId ){
         User user = usersService.findById(userId);
-        Event event = findById(eventId);
-        event.setListPartecipants(user);
+        Event found = this.findById(eventId);
+        List<User> UsersPartecipant = new ArrayList<>(found.getListPartecipants());
+        UsersPartecipant.add(user);
+        found.setListPartecipants(UsersPartecipant);
         System.out.println("aggiunto!");
+        return eventsRepository.save(found);
 
     }
 

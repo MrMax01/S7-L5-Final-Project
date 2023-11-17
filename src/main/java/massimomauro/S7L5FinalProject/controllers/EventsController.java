@@ -57,8 +57,9 @@ public class EventsController {
     }
 
     @PutMapping("/me/{id}")
-    public void findIdAndPartecipate(@PathVariable int id, @AuthenticationPrincipal User currentUser){
-        eventsService.findByIdAndPartecipate(id, currentUser.getId());
+    public Event findIdAndPartecipate(@PathVariable int id, @AuthenticationPrincipal User currentUser){
+        System.out.println(currentUser.getId());
+        return eventsService.findByIdAndPartecipate(id, currentUser.getId());
     }
 
 }
