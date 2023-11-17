@@ -1,6 +1,7 @@
 package massimomauro.S7L5FinalProject.payloads.users;
 
 import jakarta.validation.constraints.*;
+import massimomauro.S7L5FinalProject.enums.Role;
 
 public record NewUserDTO(
         @NotEmpty(message = "Il nome è un campo obbligatorio!")
@@ -10,6 +11,8 @@ public record NewUserDTO(
         String surname,
         @NotEmpty(message = "La password è un campo obbligatorio!")
         String password,
+        @NotEmpty(message="vuoi creare eventi o partecipare ad un evento?")
+        Role role,
         @NotEmpty(message = "L'email è un campo obbligatorio!")
         @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "L'email inserita non è valida")
         String email) {}

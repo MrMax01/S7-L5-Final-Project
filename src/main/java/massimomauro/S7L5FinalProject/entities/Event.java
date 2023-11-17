@@ -18,6 +18,9 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String title;
+    private String location;
+    private String description;
     private LocalDate eventStartDate;
     private LocalDate eventEndDate;
     private int totalTicket;
